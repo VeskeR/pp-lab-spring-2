@@ -1,6 +1,7 @@
 package com.kpi.lab.music;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,5 +33,16 @@ public class MusicController {
     @PostMapping(value = "/api/music", consumes = "application/json")
     public MusicModel createMusic(@RequestBody MusicModel asset) {
         return musicService.create(asset);
+    }
+
+    @Value("${config.message}")
+    private String msg;
+
+    @Value("${config.allMessage}")
+    private String allMsg;
+
+    @GetMapping("/api/music/config")
+    public String getConfig(){
+        return msg + ", " + allMsg;
     }
 }

@@ -1,6 +1,7 @@
 package com.kpi.lab.adv;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,5 +33,16 @@ public class AdvController {
     @PostMapping(value = "/api/advertising", consumes = "application/json")
     public AdvModel createAdvertising(@RequestBody AdvModel advertising) {
         return advService.create(advertising);
+    }
+
+    @Value("${config.message}")
+    private String msg;
+
+    @Value("${config.allMessage}")
+    private String allMsg;
+
+    @GetMapping("/api/advertising/config")
+    public String getConfig(){
+        return msg + ", " + allMsg;
     }
 }

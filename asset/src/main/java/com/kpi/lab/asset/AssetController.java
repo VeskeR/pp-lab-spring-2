@@ -1,6 +1,7 @@
 package com.kpi.lab.asset;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,5 +36,16 @@ public class AssetController {
     @PostMapping(value = "/api/assets", consumes = "application/json")
     public AssetModel createAsset(@RequestBody AssetModel asset) {
         return assetsService.create(asset);
+    }
+
+    @Value("${config.message}")
+    private String msg;
+
+    @Value("${config.allMessage}")
+    private String allMsg;
+
+    @GetMapping("/api/assets/config")
+    public String getConfig(){
+        return msg + ", " + allMsg;
     }
 }
